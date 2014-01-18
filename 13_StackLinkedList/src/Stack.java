@@ -33,6 +33,15 @@ public class Stack<Item> implements Iterable<Item> {
 		N--;
 		return item;
 	}
+	
+	public Item peek() {
+		if (isEmpty()) {
+			return null;
+		} else {
+			return first.item;
+		}
+	}
+	
 	public boolean isEmpty() { return (null == first); }
 	public int size() { return N; }
 

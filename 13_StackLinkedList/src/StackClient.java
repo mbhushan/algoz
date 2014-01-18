@@ -21,6 +21,8 @@ public class StackClient {
 				System.out.println("POP: " + fcs.pop());
 			}
 		}
+
+		System.out.println("peeking on stack: " + fcs.peek());
 		System.out.println("Items left on stack: " + fcs.size());
 		
 		for (String str: fcs) {
