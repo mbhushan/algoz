@@ -18,6 +18,7 @@ public class LinkedList<Item> implements Iterable<Item> {
 		
 		Item item = node.next.item;
 		node.next = node.next.next;
+		--N;
 		return item;
 	}
 	
