@@ -23,6 +23,8 @@ public class LinkedListClient {
 		printList();
 		Integer max = list.max();
 		System.out.println("max is: " + max);
+		max = list.maxRecursive();
+		System.out.println("max (recursive) is: " + max);
 	}
 	
 	public static void printList() {
@@ -44,8 +46,9 @@ public class LinkedListClient {
 	}
 }
 /*
-7 6 5 9 8 4 1 2 3
-7 -> 6 -> 5 -> 9 -> 8 -> 4 -> 1 -> 2 -> 3 -> null
+-5 9 4 3 2 1 -10 11 12 13 14 15
+-5 -> 9 -> 4 -> 3 -> 2 -> 1 -> -10 -> 11 -> 12 -> 13 -> 14 -> 15 -> null
 
-max is: 9
+max is: 15
+max (recursive) is: 15
 */
