@@ -1,0 +1,12 @@
+normal quick sort routine with out shuffling:
+total time: 5 ms
+==================================================
+
+normal quick sort routine with shuffling:
+total time: 7 ms
+==================================================
+quick sorting data. file name: data/largeT.txt
+is sorted: true
+total time (ms): 625
+
+
