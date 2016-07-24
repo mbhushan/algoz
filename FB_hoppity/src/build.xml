@@ -1,0 +1,4 @@
+<project>
+<property name="keyword" value="hoppity"/>
+<javac srcdir="." destdir="."/>
+</project>

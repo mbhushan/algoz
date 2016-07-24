@@ -1,0 +1,133 @@
+INSTALLATION INSTRUCTIONS:
+CHECKOUT BY AMAZON MERCHANT CALLBACK DEMO SERVLET
+Copyright: 2007-2008 Amazon Technologies, Inc  
+*-*-**-***-*****-********-*************
+
+*-*-**-***-*****-********-*************
+PREREQUISITES
+*-*-**-***-*****-********-*************
+Please have the following software packages available on your systems
+before running the demo.
+
+1. Java 1.5 or greater
+2. Jakarta Commons httpclient 3.x: http://hc.apache.org/httpclient-3.x/
+3. Jakarta Commons codec 1.3: http://commons.apache.org/codec/
+4. Jajarta Commons Logging 1.0: http://commons.apache.org/logging/
+5. Apache log4j 1.4: http://logging.apache.org/log4j
+6. Castor 1.2: http://www.castor.org/index.html
+7. JUnit: http://www.junit.org/
+8. Java EE: http://java.sun.com/products/servlet/download.html
+9. Xerces: http://xerces.apache.org/
+
+You will also need a working Tomcat (5.5 or greater)
+installation. Tomcat can be downloaded at < http://tomcat.apache.org/ >.
+
+*-*-**-***-*****-********-************* 
+INSTALL
+*-*-**-***-*****-********-************* 
+1. Install Tomcat.
+
+2. Download Checkout by Amazon Demo Code.
+
+3. Unzip the demo code. The demo code includes both the working jar
+   and the source code for the demo servlet.
+
+4. Add the required libraries to the 'MerchantEndPoint/WEB-INF/lib'
+   directory. 
+
+5. Use 'MerchantEndPoint/prop/merchant.properties.blank' as a template to
+   create 'MerchantEndPoint/prop/merchant.properties'. Change the values
+   for your Merchant ID, AWS Key ID, AWS Secret Key and Callback URL.
+
+6. Copy the 'MerchantEndPoint/' directory and all it's subdirectories
+   to your Tomcat server webapps directory. ('%CATALINA_HOME%/webapps/')
+
+7. Copy the 'castor/' directory and its files to your Tomcat Server. 
+   ('%CATALINA_HOME%/'). 
+
+8. Start your Tomcat server.
+
+9. Browse to http://your-web-server/MerchantEndPoint/index.jsp to
+   test your callback server with a sample cart.
+
+*-*-**-***-*****-********-*************
+Changing Your Implementation.
+*-*-**-***-*****-********-*************
+
+The test code uses the rules in
+com.amazon.callback.merchantCalculations.MerchantCalculationsTestImpl
+to create the callback response. You can modify this method as
+indicated in the source file to create your own rules.
+
+You can also create your own class based on the interface
+com.amazon.callback.merchantCalculations.MerchantCalculationsEngine. For
+more information, see the source code for the interface. 
+
+*-*-**-***-*****-********-*************
+Testing Your Implementation
+*-*-**-***-*****-********-*************
+Web Page
+
+You can use the webpage at
+http://your-web-server/MerchantEndPoint/index.jsp to test your
+callback implementation with either the sample carts provided or your
+own carts. 
+
+Copy your cart XML to the form on this page to create a button that
+will take you through the buyer pipeline. You will be able to see your
+server handling Callbacks from Amazon's servers. You can change
+whether the cart goes to the sandbox or to production in
+'MerchantEndPoint/prop/merchant.properties'. 
+
+
+-----------------------
+JUnit Tests
+
+Included with the package is a jar file with junit tests you can run
+against your package and server to test that the responses are
+correct. You can change the expected responses in MockResponse/ to
+reflect your own rules.
+
+To use local tests, you must copy the
+'MerchantEndPoint/prop/merchant.properties' file to
+'prop/merchant.properties'. By default, a great deal of logging
+information will be sent to the standard Tomcat logs. The amount of
+logging can be changed in the
+'MerchantEndPoint/prop/log4j.configuration' file
+
+* com/amazon/callback/TestServerRequest.java
+
+JUnit tests that will ping your callback server (as specified in
+prop/merchant.properties) and ensure that the request at
+'MockRequest/Request-TTT.xml' will return the response at
+'MockResponse/ServerResponse.xml'. 
+
+
+----------------------
+Command Line
+
+To get a simple HTML page that will allow you to test your callback
+server with Amazon's server, run:
+
+java -cp <class search path of directories and zip/jar files>
+com.amazon.merchant.TestSimpleCart
+
+Sample Output:
+
+<form method="POST" action="https://payments-sandbox.amazon.com/checkout/YOURMERCHANTID"/>
+<input type="hidden" name="order-input" value="type:merchant-signed-order/aws-accesskey/1;order:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPE9yZGVyIHhtbG5zPSJodHRwOi8vcGF5bWVudHMuYW1hem9uLmNvbS9jaGVja291dC8yMDA4LTExLTMwLyI+CjxDYXJ0Pgo8SXRlbXM+CjxJdGVtPgo8U0tVPkFCQzEyMzwvU0tVPgo8TWVyY2hhbnRJZD5BMTFGTlk5VkIzT043RDwvTWVyY2hhbnRJZD4KPFRpdGxlPlJlZCBGaXNoPC9UaXRsZT4KPERlc2NyaXB0aW9uPkEgcmVkIGZpc2ggcGFja2VkIGluIHNwcmluZyB3YXRlci48L0Rlc2NyaXB0aW9uPgo8UHJpY2U+CjxBbW91bnQ+MTkuOTk8L0Ftb3VudD4KPEN1cnJlbmN5Q29kZT5VU0Q8L0N1cnJlbmN5Q29kZT4KPC9QcmljZT4KPFF1YW50aXR5PjE8L1F1YW50aXR5Pgo8U2hpcHBpbmdNZXRob2RJZHM+CjxTaGlwcGluZ01ldGhvZElkPkJ1dHRvblNoaXBwaW5nTWV0aG9kLTEyMzwvU2hpcHBpbmdNZXRob2RJZD4KPC9TaGlwcGluZ01ldGhvZElkcz4KPEZ1bGZpbGxtZW50TmV0d29yaz5NRVJDSEFOVDwvRnVsZmlsbG1lbnROZXR3b3JrPgo8L0l0ZW0+CjwvSXRlbXM+CjwvQ2FydD4KPFNoaXBwaW5nTWV0aG9kcz4KPFNoaXBwaW5nTWV0aG9kPgo8U2hpcHBpbmdNZXRob2RJZD5CdXR0b25TaGlwcGluZ01ldGhvZC0xMjM8L1NoaXBwaW5nTWV0aG9kSWQ+CjxTZXJ2aWNlTGV2ZWw+U3RhbmRhcmQ8L1NlcnZpY2VMZXZlbD4KPFJhdGU+CjxTaGlwbWVudEJhc2VkPgo8QW1vdW50PjMuMDA8L0Ftb3VudD4KPEN1cnJlbmN5Q29kZT5VU0Q8L0N1cnJlbmN5Q29kZT4KPC9TaGlwbWVudEJhc2VkPgo8L1JhdGU+CjxJbmNsdWRlZFJlZ2lvbnM+CjxQcmVkZWZpbmVkUmVnaW9uPlVTQWxsPC9QcmVkZWZpbmVkUmVnaW9uPgo8L0luY2x1ZGVkUmVnaW9ucz4KPC9TaGlwcGluZ01ldGhvZD4KPC9TaGlwcGluZ01ldGhvZHM+CjxNZXJjaGFudENhbGN1bGF0aW9uQ2FsbGJhY2tzPgoJPENhbGN1bGF0ZVRheFJhdGVzPnRydWU8L0NhbGN1bGF0ZVRheFJhdGVzPgoJPENhbGN1bGF0ZVByb21vdGlvbnM+dHJ1ZTwvQ2FsY3VsYXRlUHJvbW90aW9ucz4KCTxDYWxjdWxhdGVTaGlwcGluZ1JhdGVzPnRydWU8L0NhbGN1bGF0ZVNoaXBwaW5nUmF0ZXM+Cgk8TWVyY2hhbnRDYWxsYmFja0VuZHBvaW50Pmh0dHA6Ly9hbW9zYi5kZXNrdG9wLmFtYXpvbi5jb206ODA4MC9NZXJjaGFudEVuZFBvaW50L2NhbGxiYWNrPC9NZXJjaGFudENhbGxiYWNrRW5kcG9pbnQ+Cgk8UHJvY2Vzc09yZGVyT25DYWxsYmFja0ZhaWx1cmU+ZmFsc2U8L1Byb2Nlc3NPcmRlck9uQ2FsbGJhY2tGYWlsdXJlPgo8L01lcmNoYW50Q2FsY3VsYXRpb25DYWxsYmFja3M+CjwvT3JkZXI+Cg==;signature:o0aYT/ki1gXabKrTEavZA5CQsP8=;aws-access-key-id:03FK597X22JDRGXMN582" />
+<input alt="Checkout with Amazon Payments" src="https://payments.amazon.com/gp/cba/button?ie=UTF8&color=orange&background=white&size=medium" type="image">
+</form>
+
+------------------------
+Programming
+
+* com/amazon/merchant/Cart.java
+
+Creates the HTML to walk through a basic buyer experience. By default
+it uses the cart at MockCart/SimpleCart.xml to generate the page. You
+can also feed it a different cart (by using the command line or by
+implementing your own test code). This allows you to test your
+callback server with the Checkout by Amazon pipeline. 
+
+
