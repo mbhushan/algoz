@@ -29,6 +29,26 @@ public class IntersectingArrays {
     }
 
     public int[] intersect(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int i = 0, j = 0,  k= 0;
+
+        while (i < nums1.length && j < nums2.length) {
+            if (nums1[i] < nums2[j]) {
+                ++i;
+            } else if (nums1[i] > nums2[j]) {
+                ++j;
+            } else {
+                nums1[k++] = nums1[i];
+                ++i;
+                ++j;
+            }
+        }
+
+        return Arrays.copyOfRange(nums1, 0, k);
+    }
+
+    public int[] intersect1(int[] nums1, int[] nums2) {
         Map<Integer, Integer> map = new HashMap<>();
         for (int n: nums1) {
             map.put(n, map.getOrDefault(n, 0) + 1);
