@@ -8,9 +8,9 @@ public class TwoSum {
 
     public static void main(String[] args) {
         TwoSum ts = new TwoSum();
-        int [] A = {2,7,11,15};
+        int [] A = {2,7,11,15,7};
 
-        int [] R = ts.twoSum(A, 9);
+        int [] R = ts.twoSum1(A, 14);
         System.out.println(Arrays.toString(R));
 
         int [] B = {3,2,4};
@@ -22,6 +22,19 @@ public class TwoSum {
     }
 
     public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement)) {
+                return new int[] { map.get(complement), i };
+            }
+            map.put(nums[i], i);
+        }
+        // In case there is no solution, we'll just return null
+        return null;
+    }
+
+    public int[] twoSum1(int[] nums, int target) {
         Map<Integer, List<Integer>> map = new HashMap<>();
 
         for (int i=0; i<nums.length; i++) {
