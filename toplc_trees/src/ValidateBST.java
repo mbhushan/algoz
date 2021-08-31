@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 /**
  https://leetcode.com/explore/featured/card/top-interview-questions-easy/94/trees/625/
  */
@@ -7,6 +11,23 @@ public class ValidateBST {
     public static void main(String[] args) {
         ValidateBST bst = new ValidateBST();
         System.out.println(bst.isValidBST(null));
+    }
+
+    private List<Integer> inorder(TreeNode node) {
+        List<Integer> list = new ArrayList<>();
+        if (node == null) {return list;}
+
+        Stack<TreeNode> stack = new Stack<>();
+        while (node != null || !stack.isEmpty()) {
+            while (node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+            node = stack.pop();
+            list.add(node.val);
+            node = node.right;
+        }
+        return list;
     }
 
     public boolean isValidBST(TreeNode root) {
