@@ -14,9 +14,7 @@ public class CountPrimes {
         for (int i=1; i<=20; i++) {
             int p = cp.countPrimes(i);
             System.out.println("i: " + i + "; p: " + p);
-            //System.out.println("i: " + i + "; is-prime: " + cp.isPrime(i));
         }
-        //System.out.println("i: " + 9 + "; is-prime: " + cp.isPrime(9));
     }
 
     public int countPrimes(int n) {
@@ -32,6 +30,4 @@ public class CountPrimes {
        }
        return count;
     }
-
-
 }
