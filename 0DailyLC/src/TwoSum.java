@@ -7,7 +7,24 @@ public class TwoSum {
         int target = 6;
         TwoSum ts = new TwoSum();
         int R[] = ts.twoSum(A, target);
+        int S[] = ts.twoSumv2(A, target);
         System.out.println("Result: " + Arrays.toString(R));
+        System.out.println("Result: " + Arrays.toString(S));
+    }
+
+    public int[] twoSumv2(int[] nums, int target) {
+        if (nums == null || nums.length < 2) {
+            return null;
+        }
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i=0; i<nums.length; i++) {
+            int diff = target - nums[i];
+            if (map.containsKey(diff)) {
+                return new int[] {map.get(diff), i};
+            }
+            map.put(nums[i], i);
+        }
+        return null;
     }
 
     public int[] twoSum(int[] nums, int target) {
