@@ -17,7 +17,57 @@ public class BinaryTreeOps {
         root = btops.buildBT(A, root);
         btops.printTree(root);
         System.out.println();
+        System.out.println("max depth: " + btops.maxDepth(root));
+        System.out.println("valid bst: " + btops.isValidBST(root));
+    }
 
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        return helper(root.left, root.right);
+    }
+
+    private boolean helper(TreeNode A, TreeNode B) {
+        if (A == null && B == null) return true;
+        if (A == null || B == null) return false;
+        return (A.val == B.val) && helper(A.left, B.right) && helper(A.right, B.left);
+    }
+
+
+    public boolean isValidBST(TreeNode root) {
+        return isValidBSTHelper(root, null, null);
+    }
+
+    private boolean isValidBSTHelper(TreeNode root, Integer min, Integer max) {
+        if (root == null) return true;
+        if (min != null && root.val <= min) return false;
+        if (max != null && root.val >= max) return false;
+
+        return isValidBSTHelper(root.left, min, root.val) && isValidBSTHelper(root.right, root.val, max);
+    }
+
+    public boolean isValidBSTv1(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        if ((root.left != null ) && (root.left.val > root.val)) {
+            return false;
+        }
+        if ((root.right != null) && (root.right.val <= root.val)) {
+            return false;
+        }
+        return isValidBST(root.left) && isValidBST(root.right);
+
+    }
+
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftDepth = maxDepth(root.left);
+        int rightDepth = maxDepth(root.right);
+        return Math.max(leftDepth, rightDepth)+1;
     }
 
     void printTree(TreeNode node) {
