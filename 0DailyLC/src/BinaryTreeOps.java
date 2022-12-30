@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 class TreeNode {
     Integer val;
@@ -19,6 +23,50 @@ public class BinaryTreeOps {
         System.out.println();
         System.out.println("max depth: " + btops.maxDepth(root));
         System.out.println("valid bst: " + btops.isValidBST(root));
+        btops.printlevelorder(root);
+    }
+
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return helper(nums, 0, nums.length-1);
+    }
+
+    private TreeNode helper(int []A, int left, int right) {
+        if (left > right) return null;
+        int mid = left + (right - left) / 2;
+        TreeNode node = new TreeNode(A[mid]);
+        node.left = helper(A, left, mid-1);
+        node.right = helper(A, mid+1, right);
+        return node;
+    }
+
+    public void printlevelorder(TreeNode root) {
+        List<List<Integer>> res = levelOrder(root);
+        for (List<Integer> r: res) {
+            for (int i: r)
+                System.out.print(i + " ");
+            System.out.println();
+        }
+    }
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        List<List<Integer>> result = new ArrayList<>();
+        Queue<TreeNode> Q = new LinkedList<>();
+        Q.add(root);
+
+        while (!Q.isEmpty()) {
+            List<Integer> acc = new ArrayList<>();
+            int qsize = Q.size();
+            for (int i=0; i<qsize; i++) {
+                if (Q.peek().left != null) Q.offer(Q.peek().left);
+                if (Q.peek().right != null) Q.offer(Q.peek().right);
+                acc.add(Q.poll().val);
+            }
+            result.add(acc);
+        }
+        return result;
     }
 
     public boolean isSymmetric(TreeNode root) {
