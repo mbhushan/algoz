@@ -1,7 +1,7 @@
 public class HammingWeight {
     public static void main(String[] args) {
         HammingWeight hw = new HammingWeight();
-        int x = 4294967293;
+        int x = 294967293;
 
         System.out.println(hw.hammingWeight(7));
     }
