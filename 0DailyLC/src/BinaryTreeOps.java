@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 class TreeNode {
     Integer val;
@@ -24,6 +21,44 @@ public class BinaryTreeOps {
         System.out.println("max depth: " + btops.maxDepth(root));
         System.out.println("valid bst: " + btops.isValidBST(root));
         btops.printlevelorder(root);
+    }
+
+    public List<List<Integer>> verticalOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        Queue<TreeNode> Q = new LinkedList<>();
+        Queue<Integer> cols = new LinkedList<>();
+
+        Q.add(root);
+        cols.add(0);
+        int min = 0;
+        int max = 0;
+
+        while (!Q.isEmpty()) {
+            TreeNode node = Q.poll();
+            int col = cols.poll();
+
+            if (!map.containsKey(col)) {
+                map.put(col, new ArrayList<Integer>());
+            }
+            map.get(col).add(node.val);
+            if (node.left != null) {
+                Q.add(node.left);
+                cols.add(col-1);
+                min = Math.min(min, col-1);
+            }
+            if (node.right != null) {
+                Q.add(node.right);
+                cols.add(col+1);
+                max = Math.max(max, col+1);
+            }
+        }
+        for (int i=min; i<=max; i++) {
+           result.add(map.get(i)) ;
+        }
+        return result;
     }
 
     public TreeNode sortedArrayToBST(int[] nums) {
