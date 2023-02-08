@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ https://leetcode.com/explore/interview/card/facebook/53/recursion-3/292/discuss/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning)
+ */
 public class PermutationsUnique {
     public static void main(String[] args) {
         PermutationsUnique pu = new PermutationsUnique();
